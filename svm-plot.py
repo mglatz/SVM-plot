@@ -89,8 +89,10 @@ def DataCircle():
     dfx = pd.concat([df1,df2])
 
     return dfx
+
 ##################################################################
 #select dataset
+
 #dfx = DataSeparatedWith1Bad()
 #dfx = DataRandom()
 dfx=DataCircle()
@@ -101,7 +103,7 @@ X = dfx[['x', 'y']]
 y = dfx['Late']
 
 ##################################################################
-#values to play with
+#values to plot
 
 Cs = [0.01,0.1,1,10,100,1000]
 #Cs = [0.1,1,10,1000]
@@ -135,6 +137,7 @@ for c in Cs:
     r+=1
     i=0
 
+#set window size to full screen
 mng = plt.get_current_fig_manager()
 mng.window.showMaximized()
 plt.show()
