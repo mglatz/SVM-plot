@@ -25,9 +25,10 @@ df2 = pd.DataFrame({'x': bx,
 )
 dfx = pd.concat([df1,df2])
 
+#this moves category 1 intem into category 2 region to have better visualization of what changes in C do
 dfx.iloc[0,1]=5
 dfx.iloc[0,2]=5
-#print(dfx)
+
 
 # Fit Support Vector Machine Classifier
 X = dfx[['x', 'y']]
