@@ -6,30 +6,96 @@ import pandas as pd
 from sklearn import svm
 from mlxtend.plotting import plot_decision_regions
 import matplotlib.pyplot as plt
+import random
 
-#Create arbitrary dataset for example
-ab = [0,2]
-bb = [4,6]
-ax = np.random.uniform(low=ab[0], high=ab[1], size=25)
-bx = np.random.uniform(low=bb[0], high=bb[1], size=25)
-ay = np.random.uniform(low=ab[0], high=ab[1], size=25)
-by = np.random.uniform(low=bb[0], high=bb[1], size=25)
+def DataSeparatedWith1Bad():
+    #Create arbitrary dataset for example
+    ab = [0,2]
+    bb = [4,6]
+    ax = np.random.uniform(low=ab[0], high=ab[1], size=25)
+    bx = np.random.uniform(low=bb[0], high=bb[1], size=25)
+    ay = np.random.uniform(low=ab[0], high=ab[1], size=25)
+    by = np.random.uniform(low=bb[0], high=bb[1], size=25)
 
-df1 = pd.DataFrame({'x': ax,
-                   'y':  ay,
-                   'Late':        [1]*25}
-)
-df2 = pd.DataFrame({'x': bx,
-                   'y':  by,
-                   'Late':        [2]*25}
-)
-dfx = pd.concat([df1,df2])
+    df1 = pd.DataFrame({'x': ax,
+                    'y':  ay,
+                    'Late':        [1]*25}
+    )
+    df2 = pd.DataFrame({'x': bx,
+                    'y':  by,
+                    'Late':        [2]*25}
+    )
+    dfx = pd.concat([df1,df2])
 
-#this moves category 1 intem into category 2 region to have better visualization of what changes in C do
-dfx.iloc[0,1]=5
-dfx.iloc[0,2]=5
+    #this moves category 1 intem into category 2 region to have better visualization of what changes in C do
+    dfx.iloc[0,1]=5
+    dfx.iloc[0,2]=5
 
+    return dfx
 
+def DataRandom():
+    #Create arbitrary dataset for example
+    ab = [0,6]
+    bb = [0,6]
+    ax = np.random.uniform(low=ab[0], high=ab[1], size=25)
+    bx = np.random.uniform(low=bb[0], high=bb[1], size=25)
+    ay = np.random.uniform(low=ab[0], high=ab[1], size=25)
+    by = np.random.uniform(low=bb[0], high=bb[1], size=25)
+
+    df1 = pd.DataFrame({'x': ax,
+                    'y':  ay,
+                    'Late':        [1]*25}
+    )
+    df2 = pd.DataFrame({'x': bx,
+                    'y':  by,
+                    'Late':        [2]*25}
+    )
+    dfx = pd.concat([df1,df2])
+
+    return dfx
+
+def DataCircle():
+    #Create arbitrary dataset for example    
+    ab = [-2,2]
+    bb = [-6,6]
+    ax = np.random.uniform(low=ab[0], high=ab[1], size=25)
+    bx = np.random.uniform(low=bb[0], high=bb[1], size=25)
+    ay = np.random.uniform(low=ab[0], high=ab[1], size=25)
+    by = np.random.uniform(low=bb[0], high=bb[1], size=25)
+
+    i=0
+    for x in bx:        
+        while x >= -2 and x <= 2:
+            x = random.randrange(-6,6)
+        bx[i]=x
+        i=i+1        
+
+    i=0
+    for x in by:
+        while x >= -2 and x <= 2:
+            x = random.randrange(-6,6)
+        by[i]=x
+        i=i+1
+        
+
+    df1 = pd.DataFrame({'x': ax,
+                    'y':  ay,
+                    'Late':        [1]*25}
+    )
+    df2 = pd.DataFrame({'x': bx,
+                    'y':  by,
+                    'Late':        [2]*25}
+    )
+    dfx = pd.concat([df1,df2])
+
+    return dfx
+##################################################################
+#select dataset
+#dfx = DataSeparatedWith1Bad()
+#dfx = DataRandom()
+dfx=DataCircle()
+
+##################################################################
 # Fit Support Vector Machine Classifier
 X = dfx[['x', 'y']]
 y = dfx['Late']
