@@ -1,5 +1,9 @@
-#based on https://stackoverflow.com/questions/43284811/plot-svm-with-matplotlib
-#requires mlxtend library
+'''
+simple script to visualize how sklearn.svm.SVC's parameters C and gamma affects the the learning
+
+based on https://stackoverflow.com/questions/43284811/plot-svm-with-matplotlib
+requires mlxtend library
+'''
 
 import numpy as np
 import pandas as pd
@@ -7,6 +11,9 @@ from sklearn import svm
 from mlxtend.plotting import plot_decision_regions
 import matplotlib.pyplot as plt
 import random
+
+##################################################################
+#various DataSets generated from random numbers
 
 def DataSeparatedWith1Bad():
     #Create arbitrary dataset for example
@@ -19,11 +26,11 @@ def DataSeparatedWith1Bad():
 
     df1 = pd.DataFrame({'x': ax,
                     'y':  ay,
-                    'Late':        [1]*25}
+                    'Category':        [1]*25}
     )
     df2 = pd.DataFrame({'x': bx,
                     'y':  by,
-                    'Late':        [2]*25}
+                    'Category':        [2]*25}
     )
     dfx = pd.concat([df1,df2])
 
@@ -44,11 +51,11 @@ def DataRandom():
 
     df1 = pd.DataFrame({'x': ax,
                     'y':  ay,
-                    'Late':        [1]*25}
+                    'Category':        [1]*25}
     )
     df2 = pd.DataFrame({'x': bx,
                     'y':  by,
-                    'Late':        [2]*25}
+                    'Category':        [2]*25}
     )
     dfx = pd.concat([df1,df2])
 
@@ -80,11 +87,11 @@ def DataCircle():
 
     df1 = pd.DataFrame({'x': ax,
                     'y':  ay,
-                    'Late':        [1]*25}
+                    'Category':        [1]*25}
     )
     df2 = pd.DataFrame({'x': bx,
                     'y':  by,
-                    'Late':        [2]*25}
+                    'Category':        [2]*25}
     )
     dfx = pd.concat([df1,df2])
 
@@ -92,6 +99,7 @@ def DataCircle():
 
 ##################################################################
 #select dataset
+#uncomment the one to be used
 
 #dfx = DataSeparatedWith1Bad()
 #dfx = DataRandom()
@@ -100,7 +108,7 @@ dfx=DataCircle()
 ##################################################################
 # Fit Support Vector Machine Classifier
 X = dfx[['x', 'y']]
-y = dfx['Late']
+y = dfx['Category']
 
 ##################################################################
 #values to plot
@@ -127,8 +135,8 @@ for c in Cs:
                               y=y.values,
                               clf=clf, 
                               legend=0,
-                              ax=axes[r][i]
-                              )
+                              ax=axes[r][i]                              )
+        
         axes[r][i].xaxis.set_visible(False)
         axes[r][i].yaxis.set_visible(False)
 
