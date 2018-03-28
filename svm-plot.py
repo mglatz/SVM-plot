@@ -113,8 +113,9 @@ y = dfx['Category']
 ##################################################################
 #values to plot
 
-Cs = [0.01,0.1,1,10,100,1000]
-#Cs = [0.1,1,10,1000]
+#Cs = [0.01,0.1,1,10,100,1000]
+Cs = [0.1,1,10,1000]
+#Cs = [0.01,0.1,1]
 
 Gs = [10,1,0.1,0.01,0.001]
 #Gs = [1,0.1,0.001]
@@ -127,7 +128,10 @@ i=0
 
 for c in Cs:
     for g in Gs:        
-        clf = svm.SVC(decision_function_shape='ovr',C=c,gamma=g)
+        
+        print(f'calculating SVM for C={c} amd gamma={g}')
+
+        clf = svm.SVC(decision_function_shape='ovr',C=c,gamma=g,kernel='rbf')
         clf.fit(X.values, y.values) 
 
         # Plot Decision Region using mlxtend's awesome plotting function
@@ -135,7 +139,7 @@ for c in Cs:
                               y=y.values,
                               clf=clf, 
                               legend=0,
-                              ax=axes[r][i]                              )
+                              ax=axes[r][i])
         
         axes[r][i].xaxis.set_visible(False)
         axes[r][i].yaxis.set_visible(False)
